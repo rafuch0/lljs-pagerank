@@ -1,0 +1,87 @@
+function checksum(dyn str)
+{
+	str = str.split(':');
+
+	let uint a, b, c, d, e, p;
+
+	if(str === '')
+	{
+		return 0x1000;
+	}
+
+	a = 5381;
+	p = 0;
+	while(p < str.length)
+	{
+		a = a + (a << 5 ) + (uint)(str[p].charCodeAt(0));
+		p = p + 1;
+	}
+
+	b = 0;
+	p = 0;
+	while(p < str.length)
+	{
+		b = (b << 6) + (b << 16) - b + (uint)(str[p].charCodeAt(0));
+		p = p + 1;
+	}
+
+	a = ((a >> 6) & 0x3ffffc0) | ((a >> 2) & 0x3f);
+	c = ((a >> 4) & 0x3ffc00) | (a & 0x3ff);
+	d = ((c >> 4) & 0x3c000) | (c & 0x3fff);
+	c = (((d & 0x3c0) << 4) | (d & 0x3c)) << 2;
+	a = b & 0x0f0f;
+	e = b & 0x0f0f0000;
+	b = ((d & 0xffffc000) << 4) | (d & 0x3c00);
+
+	return (b << 10) | c | a | e;
+}
+
+function fch(uint csm)
+{
+	let uint a;
+	let uint b;
+	let uint c;
+	let uint t;
+
+	a = csm % 10;
+	t = 1;
+	b = csm / 10;
+
+	while(b)
+	{
+		c = b % 10;
+
+		if(t)
+		{
+			c = c / 5 + (c * 2) % 10;
+		}
+
+		b = b/10;
+		a = a + c;
+		t = !t;
+	}
+
+	a = 10 - a % 10;
+
+	if(a == 10)
+	{
+		return '0'.charCodeAt(0);
+	}
+
+	if(t == 1)
+	{
+		return '0'.charCodeAt(0) + (a & 1 ? a + 9 : a) / 2;
+	}
+	else
+	{
+		return '0'.charCodeAt(0) + a;
+	}
+}
+
+function getPRServer(str)
+{
+	let uint csm;
+
+	csm = (uint)(checksum(str));
+	return 'http://toolbarqueries.google.com/tbr?client=navclient-auto&features=Rank&q=info:'+str+fch(csm)+csm;
+}

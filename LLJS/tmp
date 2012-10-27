@@ -1,0 +1,63 @@
+(function (exports) {
+  function checksum(str) {
+    str = str.split(':');
+    var a = 0, b = 0, c = 0, d = 0, e = 0, p = 0;
+    if (str === '') {
+      return 4096;
+    }
+    a = 5381;
+    p = 0;
+    while (p < str.length) {
+      a = ((a + (a << 5) | 0) + (str[p].charCodeAt(0) >>> 0) | 0) >>> 0;
+      p = (p + 1 | 0) >>> 0;
+    }
+    b = 0;
+    p = 0;
+    while (p < str.length) {
+      b = ((((b << 6) + (b << 16) | 0) - b | 0) + (str[p].charCodeAt(0) >>> 0) | 0) >>> 0;
+      p = (p + 1 | 0) >>> 0;
+    }
+    a = (a >> 6 & 67108800 | a >> 2 & 63) >>> 0;
+    c = (a >> 4 & 4193280 | a & 1023) >>> 0;
+    d = (c >> 4 & 245760 | c & 16383) >>> 0;
+    c = ((d & 960) << 4 | d & 60) << 2 >>> 0;
+    a = (b & 3855) >>> 0;
+    e = (b & 252641280) >>> 0;
+    b = ((d & 4294950912) << 4 | d & 15360) >>> 0;
+    return b << 10 | c | a | e;
+  }
+  function fch(csm) {
+    var a = 0;
+    var b = 0;
+    var c = 0;
+    var t = 0;
+    a = (csm % 10 | 0) >>> 0;
+    t = 1;
+    b = (csm / 10 | 0) >>> 0;
+    while (b) {
+      c = (b % 10 | 0) >>> 0;
+      if (t) {
+        c = ((c / 5 | 0) + ((c * 2 | 0) % 10 | 0) | 0) >>> 0;
+      }
+      b = (b / 10 | 0) >>> 0;
+      a = (a + c | 0) >>> 0;
+      t = !t >>> 0;
+    }
+    a = (10 - (a % 10 | 0) | 0) >>> 0;
+    if (a == 10) {
+      return '0'.charCodeAt(0);
+    }
+    if (t == 1) {
+      return '0'.charCodeAt(0) + ((a & 1 ? a + 9 | 0 : a) / 2 | 0);
+    } else {
+      return '0'.charCodeAt(0) + a;
+    }
+  }
+  function getPRServer(str) {
+    var csm = 0;
+    csm = checksum(str) >>> 0;
+    return 'http://toolbarqueries.google.com/tbr?client=navclient-auto&features=Rank&q=info:' + str + fch(csm) + csm;
+  }
+
+console.log(checksum('lol'));
+}.call(this, typeof exports === 'undefined' ? derp_ljs = {} : exports));

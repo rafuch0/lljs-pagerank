@@ -1,0 +1,46 @@
+0 info it worked if it ends with ok
+1 verbose cli [ '/home/nodetest/nvm/v0.8.9/bin/node',
+1 verbose cli   '/home/nodetest/nvm/v0.8.9/bin/npm',
+1 verbose cli   'install',
+1 verbose cli   '-g',
+1 verbose cli   'lljs' ]
+2 info using npm@1.1.61
+3 info using node@v0.8.9
+4 verbose read json /home/nodetest/nvm/v0.8.9/lib/package.json
+5 verbose read json /home/nodetest/nvm/v0.8.9/lib/package.json
+6 verbose cache add [ 'lljs', null ]
+7 silly cache add name=undefined spec="lljs" args=["lljs",null]
+8 verbose parsed url { pathname: 'lljs', path: 'lljs', href: 'lljs' }
+9 silly lockFile 26f7fa0c-lljs lljs
+10 verbose lock lljs /home/nodetest/.npm/26f7fa0c-lljs.lock
+11 silly lockFile 26f7fa0c-lljs lljs
+12 verbose addNamed [ 'lljs', '' ]
+13 verbose addNamed [ null, '' ]
+14 silly lockFile 427d7074-lljs lljs@
+15 verbose lock lljs@ /home/nodetest/.npm/427d7074-lljs.lock
+16 silly addNameRange { name: 'lljs', range: '', hasData: false }
+17 verbose url raw lljs
+18 verbose url resolving [ 'https://registry.npmjs.org/', './lljs' ]
+19 verbose url resolved https://registry.npmjs.org/lljs
+20 info trying registry request attempt 1 at 21:48:54
+21 http GET https://registry.npmjs.org/lljs
+22 http 404 https://registry.npmjs.org/lljs
+23 silly registry.get cb [ 404,
+23 silly registry.get   { server: 'CouchDB/1.2.0 (Erlang OTP/R15B)',
+23 silly registry.get     date: 'Sat, 06 Oct 2012 21:49:15 GMT',
+23 silly registry.get     'content-type': 'application/json',
+23 silly registry.get     'content-length': '52',
+23 silly registry.get     'cache-control': 'must-revalidate' } ]
+24 silly lockFile 427d7074-lljs lljs@
+25 error 404 'lljs' is not in the npm registry.
+25 error 404 You should bug the author to publish it
+25 error 404
+25 error 404 Note that you can also install from a
+25 error 404 tarball, folder, or http url, or git url.
+26 error System Linux 3.2.0-29-virtual
+27 error command "/home/nodetest/nvm/v0.8.9/bin/node" "/home/nodetest/nvm/v0.8.9/bin/npm" "install" "-g" "lljs"
+28 error cwd /home/nodetest/PageRank
+29 error node -v v0.8.9
+30 error npm -v 1.1.61
+31 error code E404
+32 verbose exit [ 1, true ]
